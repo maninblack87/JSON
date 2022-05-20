@@ -3,8 +3,21 @@ import xmltodict
 import json
 import pandas as pd
 
+# 반복문 실행을 위한 time값(크롤링할 페이지 개수) 설정
+key = "aKvmHpFI2%2BTNf3LepeF8Whu34R7222pR%2FvJ43DIO4w75ZJ%2FT3xlde342akR7IENdds1rFokGa5yW4VzjMJcO0w%3D%3D"
+url = "http://apis.data.go.kr/1192000/select0040List/getselect0040List?serviceKey={}&pageNo=1&numOfRows=100&baseDt=20220101".format(
+    key)
+
+cont = requests.get(url).content
+dict = xmltodict.parse(cont)
+jsonString = json.dumps(dict['responseXml']['header'], ensure_ascii=False)
+jsonObj = json.loads(jsonString)
+
+pageNumber = int(jsonObj['totalCount'])
+print(pageNumber)
+
 time = 0
-while time <70:
+while time < pageNumber:
 
     time = time+1
     timeStr = str(time)
