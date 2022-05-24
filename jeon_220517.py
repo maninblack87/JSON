@@ -1,7 +1,9 @@
+# 라이브러리 불러오기
 import requests
 import xmltodict
 import json
 import pandas as pd
+import math
 
 # 반복문 실행을 위한 time값(크롤링할 페이지 개수) 설정
 key = "aKvmHpFI2%2BTNf3LepeF8Whu34R7222pR%2FvJ43DIO4w75ZJ%2FT3xlde342akR7IENdds1rFokGa5yW4VzjMJcO0w%3D%3D"
@@ -13,8 +15,9 @@ dict = xmltodict.parse(cont)
 jsonString = json.dumps(dict['responseXml']['header'], ensure_ascii=False)
 jsonObj = json.loads(jsonString)
 
-pageNumber = int(jsonObj['totalCount'])
+pageNumber = math.ceil(int(jsonObj['totalCount'])/100)
 print(pageNumber)
+print(dict['responseXml']['header'])
 
 time = 0
 while time < pageNumber:
@@ -33,9 +36,6 @@ while time < pageNumber:
     dict = xmltodict.parse(cont)
     jsonString = json.dumps(dict['responseXml']['body'], ensure_ascii=False)
     jsonObj = json.loads(jsonString)
-
-    for item in jsonObj['item']:
-        print(item)
 
     df = pd.DataFrame(jsonObj['item'])
     print(df.count())

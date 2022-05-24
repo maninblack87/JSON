@@ -1,20 +1,28 @@
 import os
 import pandas as pd
+import glob
 
-file_format = ".xlsx"
-file_path = "c:/jeon/json"
-file_list = [f"{file_format}/{file}" for file in os.listdir(file_path) if file_format in file]
+def merge_excel_files(file_path, file_format, save_path, save_format, columns=None):
+    merge_df = pd.DataFrame()
+    file_list = glob.glob(f"{file_path}/*{file_format}")
 
-merge_df = pd.DataFrame()
+    for file in file_list:
+        if file_format == ".xlsx":
+            file_df = pd.read_excel(file)
+        else:
+            file_df = pd.read_csv(file)
 
-# .xlsx 이면
-for file_name in file_list:
-    file_df = pd.read_excel(file_name)
+        if columns is None:
+            columns = file_df.columns
 
-# .cvs 이면
-# for file_name in file_list:
-#     file_df = pd.read_csv(file_name, encoding='utf-8')
+        temp_df = pd.DataFrame(file_df, columns=columns)
 
-columns = list(file_df.columns)
+        merge_df = merge_df.append(temp_df)
 
-temp_df = pd.DataFrame(file_df, colums=columns)
+    if save_format == ".xlsx":
+        merge_df.to_excel(save_path, index=False)
+    else:
+        merge_df.to_csv(save_path, index=False)
+
+if __name__ == "__main__":
+    merge_excel_files(file_path="./", file_format=".xlsx",save_path="./merge_excel_now.xlsx", save_format=".xlsx")
