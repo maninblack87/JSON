@@ -2,7 +2,7 @@ import pandas as pd
 import glob
 
 try:
-    path = './'
+    path = './merge/'
     files = glob.glob(path + "*.xlsx")
     excel = pd.DataFrame()
     for file_name in files:
@@ -11,7 +11,7 @@ try:
     print(excel)
     print(excel.count())
 
-    excel.to_excel("jeon_220517_2nd.xlsx")
+    excel.to_excel("./merge/merged.xlsx")
 
 except Exception as ex:
     print('error'+str(ex))

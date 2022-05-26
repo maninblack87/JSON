@@ -22,4 +22,4 @@ print(df.count())
 print(df)
 
 # openAPI 가져온 데이터 엑셀로 저장
-df.to_excel("jeon_220515_4th.xlsx")
+df.to_excel("jeon_220515.xlsx")
