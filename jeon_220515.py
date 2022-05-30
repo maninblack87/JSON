@@ -4,7 +4,7 @@ import json
 import pandas as pd
 
 
-# openAPI 데이터 가져오기
+# openAPI 데이터 가져오기!
 key = "aKvmHpFI2%2BTNf3LepeF8Whu34R7222pR%2FvJ43DIO4w75ZJ%2FT3xlde342akR7IENdds1rFokGa5yW4VzjMJcO0w%3D%3D"
 url = "http://apis.data.go.kr/1192000/select0020List/getselect0020List?serviceKey={}&pageNo=3&numOfRows=100".format(
     key)
